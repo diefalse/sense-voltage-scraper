@@ -1,12 +1,28 @@
-version: "3.8"
-services:
-  scraper:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: sense_scraper
-    restart: unless-stopped
-    environment:
-      - TZ=Your/Timezone  # Set your timezone here, e.g., "America/New_York"
-    volumes:
-      - ./data:/app/data  # Mount a volume to store data
+# Use a base image suitable for running Python scripts
+FROM python:3.9-slim
+
+# Set up environment variables
+ENV TZ=America/New_York
+ENV SENSE_USERNAME=""
+ENV SENSE_PASSWORD=""
+
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Python script and any additional files
+COPY scraper.py /app/
+
+# Install Python dependencies
+RUN pip install selenium pandas
+
+# Expose volume for data and logs
+VOLUME /appdata
+
+# Set the command to run the scraper script
+CMD ["python", "scraper.py"]
