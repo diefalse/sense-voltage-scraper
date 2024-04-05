@@ -1,63 +1,41 @@
+  Sense Home Energy Monitor Scraper
+
 Sense Home Energy Monitor Scraper
+=================================
 
-This script scrapes L1 and L2 voltages from the Sense Home Energy Monitor in real-time and logs them to a CSV file. It uses Selenium for web scraping.
-
-Requirements
-
-Python 3.9
-Docker
-ChromeDriver
+This Docker container scrapes L1 and L2 voltages from the Sense Home Energy Monitor in real-time and logs them to a CSV file.
 
 Usage
+-----
 
-Local Installation
+1.  Install Docker on your system if you haven't already.
+2.  Clone this repository:
 
-Clone this repository:
+    git clone https://github.com/yourusername/sense-scraper.git
+    cd sense-scraper
+    
 
-git clone https://github.com/yourusername/sense-scraper.git
-cd sense-scraper
+3.  Set up environment variables for your Sense login credentials:
 
-Install the dependencies:
+    export SENSE_USERNAME=your_username
+    export SENSE_PASSWORD=your_password
+    
 
-pip install -r requirements.txt
+4.  Edit the `docker-compose.yml` file to set your timezone if necessary.
+5.  Build and run the Docker container:
 
-Set up ChromeDriver:
-Download ChromeDriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
-Extract the executable and place it in a directory included in your system's PATH.
+    docker-compose up -d
+    
 
-Edit the scraper.py file to add your Sense login credentials.
-
-Run the scraper:
-
-python scraper.py
-
-Docker Installation
-
-Clone this repository:
-
-git clone https://github.com/yourusername/sense-scraper.git
-cd sense-scraper
-
-Build the Docker image:
-
-docker build -t sense-scraper .
-
-Run the Docker container, passing your Sense login credentials as environment variables:
-
-docker run -e SENSE_USERNAME=your_username -e SENSE_PASSWORD=your_password sense-scraper
-Replace your_username and your_password with your Sense login credentials.
-
-Docker-compose
-
-Alternatively, you can use docker-compose to manage the Docker container. Edit the docker-compose.yml file to include your environment variables and run:
-
-docker-compose up -d
+The scraper will start running inside the Docker container, logging voltage data to a CSV file.
 
 Environment Variables
+---------------------
 
-SENSE_USERNAME: Your Sense Home Energy Monitor login username.
-SENSE_PASSWORD: Your Sense Home Energy Monitor login password.
+*   `SENSE_USERNAME`: Your Sense Home Energy Monitor login username.
+*   `SENSE_PASSWORD`: Your Sense Home Energy Monitor login password.
 
 License
+-------
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
