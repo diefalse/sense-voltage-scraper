@@ -1,15 +1,32 @@
-# Use an official Python runtime as a parent image
+FROM diefalse/sense-voltage-scraper:latest
+LABEL org.opencontainers.image.authors = "DieFalse"
+LABEL org.opencontainers.image.source = "https://github.com/dieflase/sense-voltage-scraper"
+
+# Use a base image suitable for running Python scripts
 FROM python:3.9-slim
 
-# Install ChromeDriver and other dependencies
-RUN apt-get update && apt-get install -y chromium-driver
-RUN pip install --no-cache-dir pandas selenium
+# Set up environment variables
+ENV TZ=America/New_York
+ENV SENSE_USERNAME=""
+ENV SENSE_PASSWORD=""
 
-# Set the working directory in the container
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
 WORKDIR /app
 
-# Copy the scraper script into the container
-COPY scraper.py /app
+# Copy the Python script and any additional files
+COPY scraper.py /app/
 
-# Run the scraper script when the container launches
+# Install Python dependencies
+RUN pip install selenium pandas
+
+# Expose volume for data and logs
+VOLUME /appdata
+
+# Set the command to run the scraper script
 CMD ["python", "scraper.py"]
