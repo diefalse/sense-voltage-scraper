@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 # Set up logging
-logging.basicConfig(filename='/app/scraper.log', level=logging.ERROR, format='%(asctime)s - %(message)s')
+logging.basicConfig(filename='/appdata/scraper.log', level=logging.ERROR, format='%(asctime)s - %(message)s')
 
 # Function to perform login using Selenium
 def login(driver):
@@ -120,7 +120,7 @@ def main():
     prev_data = None
 
     # CSV file path
-    file_path = '/app/voltage_data.csv'
+    file_path = '/appdata/voltage_data.csv'
 
     # Main loop to continuously scrape and update the data
     while True:
