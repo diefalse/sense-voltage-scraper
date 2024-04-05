@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  scraper:
+    build: .
+    container_name: sense_scraper
+    restart: unless-stopped
+    environment:
+      - TZ=Your/Timezone  # Set your timezone here, e.g., "America/New_York"
+    volumes:
+      - ./data:/app/data  # Mount a volume to store data
