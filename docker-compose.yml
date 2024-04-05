@@ -1,3 +1,7 @@
+FROM diefalse/sense-voltage-scraper:latest
+LABEL org.opencontainers.image.authors = "DieFalse"
+LABEL org.opencontainers.image.source = "https://github.com/dieflase/sense-voltage-scraper"
+
 # Use a base image suitable for running Python scripts
 FROM python:3.9-slim
 
